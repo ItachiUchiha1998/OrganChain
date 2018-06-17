@@ -1,10 +1,10 @@
 pragma solidity ^0.4.19;
-
 /**
 * @title Organ Factory
 * @dev TicketFactory is a contract for managing the token ownership,
 * allowing the participants to purchase NFT with ether.
 * @author Vinayak Shrivastava
+   
 */
 
 contract OrganFactory {
@@ -67,4 +67,14 @@ contract OrganFactory {
     	);
     }
 
+    function getIsPurchased(uint256 _id) public view returns (bool) {
+        return organs[_id].isPurchased;
+    }
+
+    function setIsPurchased(uint256 _id, bool _isPurchased) public {
+        organs[_id].isPurchased = _isPurchased;
+    }
+
 }
+
+

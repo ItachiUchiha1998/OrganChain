@@ -10,3 +10,4 @@ module.exports = {
     }
   }
 }
+//OrganFactory.deployed().then(function(instance){return instance.getOrgan(0);}).then(function(v){console.log(v.toString(10));}).catch(function(e){ console.log(e) })  
