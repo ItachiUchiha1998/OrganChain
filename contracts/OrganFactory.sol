@@ -31,7 +31,7 @@ contract OrganFactory {
 
     /**
 	*	@dev Donate an organ and push into the blockchain	
-		@params 
+		 
     */
     function donateOrgan( 
     	string _name,
@@ -47,7 +47,7 @@ contract OrganFactory {
 
     /**
 		@dev Get organ details
-		@params
+		
     */
 
     function getOrgan(uint256 _id) public view 
@@ -59,11 +59,11 @@ contract OrganFactory {
 		bool
     ) {
     	return (
-    		organs[_id].name;
-    		organs[_id].donorId;
-    		organs[_id].refcode;
-    		organs[_id].hospitalId;
-    		organs[_id].isPurchased;
+    		organs[_id].name,
+    		organs[_id].donorId,
+    		organs[_id].refcode,
+    		organs[_id].hospitalId,
+    		organs[_id].isPurchased
     	);
     }
 
