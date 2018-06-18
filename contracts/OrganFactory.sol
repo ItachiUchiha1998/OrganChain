@@ -14,6 +14,7 @@ contract OrganFactory {
 		uint256 donorId;
 		uint256 refcode;
 		uint256 hospitalId;
+        uint256 price;
 		bool isPurchased;
 	}
 
@@ -38,9 +39,10 @@ contract OrganFactory {
     	uint256 _donorId,
     	uint256 _refcode,
 		uint256 _hospitalId,
+        uint256 price,
 		bool _isPurchased
     ) public returns (uint256) {
-    	uint id = organs.push(Organ(_name,_refcode,_donorId,_hospitalId,_isPurchased)) - 1; // by default _isPurchased will be false
+    	uint id = organs.push(Organ(_name,_refcode,_donorId,_hospitalId,price,_isPurchased)) - 1; // by default _isPurchased will be false
     	//emit OrganDonated(id); // decide params
         return id;
     }
@@ -56,6 +58,7 @@ contract OrganFactory {
 		uint256,
 		uint256,
 		uint256,
+        uint256,
 		bool
     ) {
     	return (
@@ -63,6 +66,7 @@ contract OrganFactory {
     		organs[_id].donorId,
     		organs[_id].refcode,
     		organs[_id].hospitalId,
+            organs[_id].price,
     		organs[_id].isPurchased
     	);
     }
@@ -73,6 +77,19 @@ contract OrganFactory {
 
     function setIsPurchased(uint256 _id, bool _isPurchased) public {
         organs[_id].isPurchased = _isPurchased;
+    }
+
+    function buyOrgan(uint _id,address _buyer) public payable returns (uint256) {
+        require(_id != 0);
+        require(_buyer != address(0));
+
+        Organ storage organInstance = organs[_id];
+        require(organInstance.price == msg.value);
+
+        // pass token from one add to another and set isPurchased->true
+
+        return _id;
+
     }
 
 }
