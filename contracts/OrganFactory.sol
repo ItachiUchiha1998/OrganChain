@@ -4,17 +4,19 @@ pragma solidity ^0.4.23;
 * @dev TicketFactory is a contract for managing the token ownership,
 * allowing the participants to purchase NFT with ether.
 * @author Vinayak Shrivastava
-   
+
 */
 
+/* import "github.com/Arachnid/solidity-stringutils/strings.sol"; */
 contract OrganFactory {
 
+ /* using strings for *; */
 	struct Organ {
 		string name;
+		string bloodType;
 		uint256 donorId;
 		uint256 refcode;
 		uint256 hospitalId;
-        uint256 price;
 		bool isPurchased;
 	}
 
@@ -31,34 +33,33 @@ contract OrganFactory {
 
 
     /**
-	*	@dev Donate an organ and push into the blockchain	
-		 
+	*	@dev Donate an organ and push into the blockchain
+
     */
-    function donateOrgan( 
+    function donateOrgan(
     	string _name,
+    	string _bloodType,
     	uint256 _donorId,
     	uint256 _refcode,
 		uint256 _hospitalId,
-        uint256 price,
 		bool _isPurchased
     ) public returns (uint256) {
-    	uint id = organs.push(Organ(_name,_refcode,_donorId,_hospitalId,price,_isPurchased)) - 1; // by default _isPurchased will be false
+    	uint id = organs.push(Organ(_name,_bloodType,_refcode,_donorId,_hospitalId,_isPurchased)) - 1; // by default _isPurchased will be false
     	//emit OrganDonated(id); // decide params
         return id;
     }
 
     /**
 		@dev Get organ details
-		
+
     */
 
-    function getOrgan(uint256 _id) public view 
+    function getOrgan(uint256 _id) public view
     returns(
     	string,
 		uint256,
 		uint256,
 		uint256,
-        uint256,
 		bool
     ) {
     	return (
@@ -66,7 +67,6 @@ contract OrganFactory {
     		organs[_id].donorId,
     		organs[_id].refcode,
     		organs[_id].hospitalId,
-            organs[_id].price,
     		organs[_id].isPurchased
     	);
     }
@@ -79,19 +79,7 @@ contract OrganFactory {
         organs[_id].isPurchased = _isPurchased;
     }
 
-    function buyOrgan(uint256 _id,address _buyer) public payable returns (uint256) {
-        require(_id != 0);
-        require(_buyer != address(0));
+    // if (stringu.equal("aman","signed")) {}
 
-        Organ storage organInstance = organs[_id];
-        require(organInstance.price == msg.value);
-
-        // pass token from one add to another and set isPurchased->true
-
-        return _id;
-
-    }
-
+// var len = "Unicode snowman ☃".toSlice().len();
 }
-
-
