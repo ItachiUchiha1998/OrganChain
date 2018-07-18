@@ -1,4 +1,4 @@
-pragma solidity ^0.4.19;
+pragma solidity ^0.4.23;
 /**
 * @title Organ Factory
 * @dev TicketFactory is a contract for managing the token ownership,
@@ -79,7 +79,7 @@ contract OrganFactory {
         organs[_id].isPurchased = _isPurchased;
     }
 
-    function buyOrgan(uint _id,address _buyer) public payable returns (uint256) {
+    function buyOrgan(uint256 _id,address _buyer) public payable returns (uint256) {
         require(_id != 0);
         require(_buyer != address(0));
 
