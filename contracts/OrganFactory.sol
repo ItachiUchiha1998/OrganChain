@@ -7,9 +7,10 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 * @dev TicketFactory is a contract for managing the token ownership,
 * allowing the participants to purchase NFT with ether.
 * @author Vinayak Shrivastava
-   
+
 */
 
+/* import "github.com/Arachnid/solidity-stringutils/strings.sol"; */
 contract OrganFactory {
 
     using SafeMath for uint;
@@ -53,16 +54,15 @@ contract OrganFactory {
                                     _isPurchased,purchase_organ)) - 1; // by default _isPurchased will be false and purchase_id is empty
     	
         //emit OrganDonated(id); // decide params
-        
         return id;
     }
 
     /**
 		@dev Get organ details
-		
+
     */
 
-    function getOrgan(uint256 _id) public view 
+    function getOrgan(uint256 _id) public view
     returns(
     	string,
 		address,
@@ -119,4 +119,3 @@ contract OrganFactory {
     // }
 
 }
-
