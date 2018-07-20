@@ -4,8 +4,3 @@ var OrganFactory = artifacts.require("./OrganFactory.sol");
 module.exports = function(deployer) {
   deployer.deploy(OrganFactory);
 };
-
-var PurchaseOrgan = artifacts.require("./Purchase_Organ.sol");
-module.exports = function(deployer) {
-  deployer.deploy(PurchaseOrgan);
-};
