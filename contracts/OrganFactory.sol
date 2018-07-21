@@ -1,16 +1,6 @@
 pragma solidity ^0.4.24;
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
-/**
-
-* @title Organ Factory
-* @dev TicketFactory is a contract for managing the token ownership,
-* allowing the participants to purchase NFT with ether.
-* @author Vinayak Shrivastava
-
-*/
-
-/* import "github.com/Arachnid/solidity-stringutils/strings.sol"; */
 contract OrganFactory {
 
     using SafeMath for uint;
@@ -19,23 +9,24 @@ contract OrganFactory {
 		string name;
 		address donorId;
 		uint256 refcode;
-		uint256 hospitalId;
+		address hospitalId;
     /* string blood_group; */
 		bool isPurchased;
     address purchaser_id;
-    bool isApproved; // For organ approval by hospital
   }
 
   struct Hospital {
     string name;
+    address hospitalId;
     uint256[] approvRequest;
     uint256[] approved;
   }
   Hospital[] public hospitals;
 
 // function takes string as input which will contain address of hospital
-function createHospital(string _name) public {
-  hospitals.push(Hospital(_name, new uint256[](0), new uint256[](0)));//,uint256[], uint256[]));
+function createHospital(string _name,address _hospitalId) public {
+  hospitals.push(Hospital(_name,_hospitalId, new uint256[](0), new uint256[](0)));
+  // event
 }
 
     // import user schema
@@ -50,37 +41,63 @@ function createHospital(string _name) public {
     // Mapping from user to owned organs
     mapping (address => uint256[]) private ownedOrgans;
 
+//This function will be called via button from fronend when organ accepted
+    function organAccepted(uint _i, uint _j) public returns(bool){
+      //_i is index in hospital array
+      //_j is the index in approvRequest array
+      uint256 k = hospitals[_i].approvRequest[_j];
+      hospitals[_i].approved.push(k);
+      for(uint i=_j; i<hospitals[_i].approvRequest.length-1;i++) {
+        hospitals[_i].approvRequest[i] = hospitals[_i].approvRequest[i+1];
+      }
+      delete hospitals[_i].approvRequest[hospitals[_i].approvRequest.length-1];
+      hospitals[_i].approvRequest.length--;
+      return true;
+    }
+//Function will be called via button from frontend when organ is rejected
+    function organRejected(uint _i, uint _j) public returns(bool){
 
+      for(uint i=_j; i<hospitals[_i].approvRequest.length-1;i++) {
+        hospitals[_i].approvRequest[i] = hospitals[_i].approvRequest[i+1];
+      }
+      delete hospitals[_i].approvRequest[hospitals[_i].approvRequest.length-1];
+      hospitals[_i].approvRequest.length--;
+      return false;
+    }
 
-    /* function getApproval(uint256 _hospitalId, string _name, uint256 _donorId) public returns (bool){
+    function getApproval(address _hospitalId, string _name, address _donorId) public returns (bool){
       for(uint i=0;i<hospitals.length;i++) {
         if(hospitals[i].hospitalId == _hospitalId) {
-          hospitals[i].approvRequest.push(keccak256(_name,_donorId));
-
+          uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,_donorId))))-1;
+          //Since push command finds the length
+          if(organAccepted(i,j)) {
+            return true;
+          }
+          if(!organRejected(i,j)){
+            return false;
+          }
         }
       }
-    } */
+    }
 
     function donateOrgan(
     	string _name,
     	address _donorId,
     	uint256 _refcode,
-		  uint256 _hospitalId,
+		  address _hospitalId,
         /* string blood_group, */
 		  bool _isPurchased,
-      address _purchaser_id, // address of the per
-      bool _isApproved
+      address _purchaser_id// address of the per
     ) public returns (uint256) {
 
-      /* if(!_isApproved) {
-        getApproval(_hospitalId, _name, _donorId);
-      } */
+      if(getApproval(_hospitalId,_name,_donorId)) {
     	uint id = organs.push(Organ(_name,_donorId,
                                     _refcode,_hospitalId,
-                                    _isPurchased,_purchaser_id,_isApproved)) - 1; // by default _isPurchased will be false and purchaser_id is empty */
+                                    _isPurchased,_purchaser_id)) - 1; // by default _isPurchased will be false and purchaser_id is empty */
 
         /* //emit OrganDonated(id); // decide params*/
         return id;
+      }
     }
 
     /**
@@ -93,10 +110,9 @@ function createHospital(string _name) public {
     	string,
 		address,
 		uint256,
-		uint256,
+		address,
 		bool,
-    address,
-    bool
+    address
     ) {
     	return (
     		organs[_id].name,
@@ -104,8 +120,7 @@ function createHospital(string _name) public {
     		organs[_id].refcode,
     		organs[_id].hospitalId,
     		organs[_id].isPurchased,
-            organs[_id].purchaser_id,
-        organs[_id].isApproved
+            organs[_id].purchaser_id
     	);
     }
 
