@@ -70,15 +70,19 @@ function createHospital(string _name,address _hospitalId) public {
         if(hospitals[i].hospitalId == _hospitalId) {
           uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,_donorId))))-1;
           //Since push command finds the length
-          if(organAccepted(i,j)) {
-            return true;
-          }
-          if(!organRejected(i,j)){
-            return false;
-          }
+          return true;
         }
       }
     }
+
+    function see_function(address _hospitalId) public returns (uint256[]) {
+      for(uint i=0;i<hospitals.length;i++) {
+        if(hospitals[i].hospitalId == _hospitalId) {
+          return hospitals[i].approvRequest;
+        }
+      }
+    }
+
 
     function donateOrgan(
     	string _name,
@@ -90,14 +94,13 @@ function createHospital(string _name,address _hospitalId) public {
       address _purchaser_id// address of the per
     ) public returns (uint256) {
 
-      if(getApproval(_hospitalId,_name,_donorId)) {
     	uint id = organs.push(Organ(_name,_donorId,
                                     _refcode,_hospitalId,
                                     _isPurchased,_purchaser_id)) - 1; // by default _isPurchased will be false and purchaser_id is empty */
 
         /* //emit OrganDonated(id); // decide params*/
-        return id;
-      }
+      getApproval(_hospitalId,_name,_donorId);
+      return id;
     }
 
     /**
