@@ -48,3 +48,20 @@ window.see_function = function() {
     })
   })
 }
+
+window.donateOrgan = function() {
+  $("#donate-msg").html("Donation Request in Progress. Please Wait!!");
+  // taking out values from frontend
+  let organ_name = $("#organ-name").val();
+  let ref_code = $("#ref-code").val();
+  let hospital_id = $("#hospital-id").val();
+  let isPurchased = $("#isPurchased").val();
+  let purchaser_id = $("#purchaser_id").val();
+  OrganFactory.deployed().then(function(contractInstance) {
+
+    contractInstance.donateOrgan(organ_name,ref_code,hospital_id,isPurchased,purchaser_id,{from:web3.eth.accounts[0]}).then(function(v) {
+      $("#donate-msg").html("");
+      $("#hospital-approval").html("Waiting for hospital Verification.Please Wait!!");
+    })
+  })
+}
