@@ -19,24 +19,31 @@ window.createHospital = function(name) {
   $("#create-msg").html("Hospital Account Creation request has been submitted. Please wait!!");
   // .deployed() function returns contractInstance which is passed in promise
   OrganFactory.deployed().then(function(contractInstance) {
+    $("#hospital-address").empty();
+    $("#hospital-address").append("Hospital Id is : <br>");
     // msg.sender is passed in {from:} format
-    //create hospital function is not returning anything hence nothing passed in function()
-    contractIntsance.createHospital(hospitalName,{from:web3.eth.accounts[0]}).then(function() {
+    //create hospital function is returning hospital id hence passed in function()
+    contractIntsance.createHospital(hospitalName,{from:web3.eth.accounts[0]}).then(function(v) {
       $('#create-msg').html("");
+      // i.e hospital id is displayed
+      $("#hospital-address").append(v);
     })
   })
 }
 
 window.see_function = function() {
-  $("see-msg").html("Request in process");
+  $("#see-msg").html("Request in process");
   OrganFactory.deployed().then(function(contractInstance) {
 // see_function returns v which is passed to function as parameter
 // v is array
     contractInstance.see_function({from:web3.eth.accounts[0]}).then(function(v) {
       let waitingApproval = v;
-      $("see-msg").html("");
+      $("#see-msg").html("");
+      $("#organs-waitingApproval").empty();
+      $("#organs-waitingApproval").append("Organs waiting Approval:<br");
       for(let i=0; i < waitingApproval.length; i++) {
-        
+        // waiting approval is in keccak format??
+        $("#organs-waitingApproval").append(i+1 + ":" + waitingApproval[i]);
       }
     })
   })
