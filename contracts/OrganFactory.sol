@@ -3,7 +3,7 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract OrganFactory {
 
-    using SafeMath for uint;
+  using SafeMath for uint;
 
 	struct Organ {
 		string name;
@@ -24,8 +24,8 @@ contract OrganFactory {
   Hospital[] public hospitals;
 
 // function takes string as input which will contain address of hospital
-function createHospital(string _name,address _hospitalId) public {
-  hospitals.push(Hospital(_name,_hospitalId, new uint256[](0), new uint256[](0)));
+function createHospital(string _name) public {
+  hospitals.push(Hospital(_name,msg.sender, new uint256[](0), new uint256[](0)));
   // event
 }
 
@@ -82,7 +82,6 @@ function createHospital(string _name,address _hospitalId) public {
         }
       }
     }
-
 
     function donateOrgan(
     	string _name,
