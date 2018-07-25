@@ -3,7 +3,7 @@ import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
 contract OrganFactory {
 
-    using SafeMath for uint;
+  using SafeMath for uint;
 
 	struct Organ {
 		string name;
@@ -24,9 +24,10 @@ contract OrganFactory {
   Hospital[] public hospitals;
 
 // function takes string as input which will contain address of hospital
-function createHospital(string _name,address _hospitalId) public {
-  hospitals.push(Hospital(_name,_hospitalId, new uint256[](0), new uint256[](0)));
+function createHospital(string _name) public returns (uint256){
+  hospitals.push(Hospital(_name,msg.sender, new uint256[](0), new uint256[](0)));
   // event
+  return msg.sender;
 }
 
     // import user schema
@@ -65,7 +66,7 @@ function createHospital(string _name,address _hospitalId) public {
       return false;
     }
 
-    function getApproval(address _hospitalId, string _name, address _donorId) public returns (bool){
+    /* function getApproval(address _hospitalId, string _name, address _donorId) public returns (bool){
       for(uint i=0;i<hospitals.length;i++) {
         if(hospitals[i].hospitalId == _hospitalId) {
           uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,_donorId))))-1;
@@ -73,33 +74,43 @@ function createHospital(string _name,address _hospitalId) public {
           return true;
         }
       }
-    }
+    } */
 
+<<<<<<< HEAD
     function see_function(address _hospitalId) public view returns (uint256[]) {
+=======
+    function see_function() public returns (uint256[]) {
+>>>>>>> 345ab13fdfbaab2f00f8e045fc2d65cfbdfaaa61
       for(uint i=0;i<hospitals.length;i++) {
-        if(hospitals[i].hospitalId == _hospitalId) {
+        if(hospitals[i].hospitalId == msg.sender) {
           return hospitals[i].approvRequest;
         }
       }
     }
 
-
     function donateOrgan(
     	string _name,
-    	address _donorId,
+    	/* address _donorId, */  // since donor id is same as msg.sender
     	uint256 _refcode,
-		  address _hospitalId,
+		  address _hospitalId, // Imp -- will be found fromm create hospital
         /* string blood_group, */
 		  bool _isPurchased,
       address _purchaser_id// address of the per
     ) public returns (uint256) {
 
-    	uint id = organs.push(Organ(_name,_donorId,
+    	uint id = organs.push(Organ(_name,msg.sender,
                                     _refcode,_hospitalId,
                                     _isPurchased,_purchaser_id)) - 1; // by default _isPurchased will be false and purchaser_id is empty */
 
         /* //emit OrganDonated(id); // decide params*/
-      getApproval(_hospitalId,_name,_donorId);
+        for(uint i=0;i<hospitals.length;i++) {
+          if(hospitals[i].hospitalId == _hospitalId) {
+            uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,msg.sender))))-1;
+          }
+          else {
+            // raise error
+          }
+        }
       return id;
     }
 
