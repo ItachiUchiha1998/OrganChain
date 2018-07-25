@@ -29,10 +29,16 @@
     "html-webpack-plugin": "^2.28.0",
     "json-loader": "^0.5.4",
     "style-loader": "^0.13.1",
-    "truffle-contract": "^1.1.11",
-    "web3": "^0.20.2",
+    "truffle-contract": "^3.0.5",
+    "web3": "^0.20.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-dev-server": "^2.3.0",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "chai-bignumber": "^2.0.2",
+    "ganache-cli": "^6.1.0",
+    "solidity-coverage": "^0.5.4",
+    "solium": "^1.1.7"
   },
   "dependencies": {
     "ganache-cli": "^6.1.6",

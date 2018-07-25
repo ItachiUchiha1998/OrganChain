@@ -75,7 +75,7 @@ function createHospital(string _name,address _hospitalId) public {
       }
     }
 
-    function see_function(address _hospitalId) public returns (uint256[]) {
+    function see_function(address _hospitalId) public view returns (uint256[]) {
       for(uint i=0;i<hospitals.length;i++) {
         if(hospitals[i].hospitalId == _hospitalId) {
           return hospitals[i].approvRequest;
