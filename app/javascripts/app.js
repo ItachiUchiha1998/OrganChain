@@ -32,7 +32,8 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
       Organ.deployed().then(function(contractInstance) {
       
         contractInstance.donateOrgan(organName,donorId,refcode,
-                                     hospitalId,false,"0x0")
+                                     hospitalId,false,"0x0",
+                                    {gas:10000,from:web3.eth.accounts[0]})
         .then(function(){
           return true;
         })
@@ -43,28 +44,32 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
     }
 
   }
-    $("#donate").click(donateOrgan);
+
+  function getOrgan() {
+
+    console.log("get organ function called")
+
+    try {
+      Organ.deployed().then(function(contractInstance) {
+          contractInstance.getCount.call().then(function(v) {
+            console.log(v.toString());
+
+            for(let i=1;i<=v;i++)    
+            contractInstance.getOrgan.call(i-1).then(function(v){
+              console.log(v.toString())
+            })
+        
+          });
+        })
+    } catch(err) {
+      console.log(err);
+    }
+  }
+  
+  $("#donate").click(donateOrgan);
+  $('#get').click(getOrgan);
         
   })
-
-  // getOrgan = function(organ) {
-    
-  //   try {
-  //     Organ.deployed().then(function(contractInstance) {
-  //         contractInstance.getOrgan.call(id).then(function(v) {
-  //           console.log(v.toString());
-  //         });
-  //       })
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-  // } 
-
-  // test = function(hospital) {
-
-  //   console.log("test function called")
-    
-  // }
 
   // createHospital = function(hospital){
   //   console.log("create hospital function called")

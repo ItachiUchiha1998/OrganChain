@@ -10,7 +10,6 @@ contract OrganFactory {
 		address donorId;
 		uint256 refcode;
 		address hospitalId;
-    /* string blood_group; */
 		bool isPurchased;
     address purchaser_id;
   }
@@ -23,26 +22,19 @@ contract OrganFactory {
   }
   Hospital[] public hospitals;
 
-// function takes string as input which will contain address of hospital
 function createHospital(string _name) public returns (bool){
   hospitals.push(Hospital(_name,msg.sender, new uint256[](0), new uint256[](0)));
   // event
   return true;
 }
 
-    // import user schema
   Organ[] public organs;
-	/* Events */
+
 	event OrganDonated(/**/); // params to be decided
 
-	/* Mappings */
-
-    // Mapping from organ id to hospital
     mapping (uint => address) private organToHospital;
-    // Mapping from user to owned organs
     mapping (address => uint256[]) private ownedOrgans;
 
-//This function will be called via button from fronend when organ accepted
     function organAccepted(uint _i, uint _j) public returns(bool){
       //_i is index in hospital array
       //_j is the index in approvRequest array
@@ -55,7 +47,7 @@ function createHospital(string _name) public returns (bool){
       hospitals[_i].approvRequest.length--;
       return true;
     }
-//Function will be called via button from frontend when organ is rejected
+
     function organRejected(uint _i, uint _j) public returns(bool){
 
       for(uint i=_j; i<hospitals[_i].approvRequest.length-1;i++) {
@@ -66,15 +58,6 @@ function createHospital(string _name) public returns (bool){
       return false;
     }
 
-    /* function getApproval(address _hospitalId, string _name, address _donorId) public returns (bool){
-      for(uint i=0;i<hospitals.length;i++) {
-        if(hospitals[i].hospitalId == _hospitalId) {
-          uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,_donorId))))-1;
-          //Since push command finds the length
-          return true;
-        }
-      }
-    } */
 
 function see_function(address _hospitalId) public view returns (uint256[]) {
 for(uint i=0;i<hospitals.length;i++) {
@@ -86,34 +69,26 @@ for(uint i=0;i<hospitals.length;i++) {
 
     function donateOrgan(
     	string _name,
-    	/* address _donorId, */  // since donor id is same as msg.sender
+    	address _donorId,   
     	uint256 _refcode,
-		  address _hospitalId, // Imp -- will be found fromm create hospital
-        /* string blood_group, */
+		  address _hospitalId, 
 		  bool _isPurchased,
-      address _purchaser_id// address of the per
+      address _purchaser_id
     ) public returns (uint256) {
 
-    	uint id = organs.push(Organ(_name,msg.sender,
+    	uint id = organs.push(Organ(_name,_donorId,
                                     _refcode,_hospitalId,
-                                    _isPurchased,_purchaser_id)) - 1; // by default _isPurchased will be false and purchaser_id is empty */
-
-        /* //emit OrganDonated(id); // decide params*/
+                                    _isPurchased,_purchaser_id)) - 1; 
         for(uint i=0;i<hospitals.length;i++) {
           if(hospitals[i].hospitalId == _hospitalId) {
             uint256 j = hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,msg.sender))))-1;
           }
           else {
-            // raise error
+
           }
         }
       return id;
     }
-
-    /**
-		@dev Get organ details input - block id
-
-    */
 
     function getOrgan(uint256 _id) public view
     returns(
@@ -143,30 +118,20 @@ for(uint i=0;i<hospitals.length;i++) {
     }
 
     function purchase(uint256 _id,address _buyer) public returns (bool) {
-        // check for black listed users if blacklisted return false
-
         organs[_id].purchaser_id = _buyer;
-
-        // emit OrganDonated()
-
         return true;
     }
 
     function purchaseOrgan(uint256 _id,address _buyer) public returns (uint256) {
 
         Organ storage organInstance = organs[_id];
-
-        // pass token from one add to another and set isPurchased->true
-
         setIsPurchased(_id,true);
         purchase(_id,_buyer);
         return _id;
-
     }
 
-    // function getPurchasedOrgans(address _buyer) public returns (bool) {
-
-    //     return true;
-    // }
+    function getCount() public view returns (uint256) {
+      return organs.length;
+    }
 
 }
