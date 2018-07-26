@@ -44,7 +44,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
     }
 
   }
-
+  
   function getOrgan() {
 
     console.log("get organ function called")
@@ -64,8 +64,8 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
               <span class="card-title">` + v[0] +`</span>
               <p>ReferenceID : ` + v[2] + `</p>
             </div>
-            <div class="card-action">
-              <button>Get Organ</button>
+            <div class="card-action ">
+              <button id="getOrgan" class="waves-effect waves-light btn">Get Organ</button>
               </div>
           </div>
         </div>
@@ -83,6 +83,18 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
   
   $("#donate").click(donateOrgan);
   $('#get').click(getOrgan);
+  $('#organDonate').hide();
+  $(document).on("click", '#getOrgan',function(){
+    console.log("purchase function called")
+  })
+
+    $("#cancel").click(function(){
+        $("#organDonate").hide();
+    });
+
+    $("#showDonate").click(function(){
+        $("#organDonate").show();
+    });
         
   })
 
@@ -135,3 +147,9 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
   //     console.log(err)
   //   }
   // }
+
+
+/*
+hospital approval
+get organ
+*/
