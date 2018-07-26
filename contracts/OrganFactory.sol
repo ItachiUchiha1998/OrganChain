@@ -108,19 +108,6 @@ for(uint i=0;i<hospitals.length;i++) {
     	);
     }
 
-    // function getHospital(uint256 _id) public view
-    // returns(
-    //   string,
-    // address,
-    // uint256[],
-    // uint256[]  ) {
-    //   return (        hospitals[_id].name,
-    //     hospitals[_id].hospitalId,
-    //     hospitals[_id].approvRequest,
-    //     hospitals[_id].approved,
-    //   );
-    // }
-
     function getIsPurchased(uint256 _id) public view returns (bool) {
         return organs[_id].isPurchased;
     }
@@ -147,3 +134,10 @@ for(uint i=0;i<hospitals.length;i++) {
     }
 
 }
+
+
+/* 
+  event emitters
+  comments
+  all functions executable
+*/

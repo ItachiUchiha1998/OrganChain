@@ -56,6 +56,21 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
 
             for(let i=1;i<=v;i++)    
             contractInstance.getOrgan.call(i-1).then(function(v){
+              $('#organs').append(
+    `<div class="row">
+        <div class="col s12">
+          <div class="card " style="background-color: #fb576a">
+            <div class="card-content white-text" >
+              <span class="card-title">` + v[0] +`</span>
+              <p>ReferenceID : ` + v[2] + `</p>
+            </div>
+            <div class="card-action">
+              <button>Get Organ</button>
+              </div>
+          </div>
+        </div>
+    </div>`
+                )
               console.log(v.toString())
             })
         
