@@ -32,8 +32,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
       Organ.deployed().then(function(contractInstance) {
       
         contractInstance.donateOrgan(organName,donorId,refcode,
-                                     hospitalId,false,"0x0",
-                                    {gas:10000,from:web3.eth.accounts[0]})
+                                     hospitalId,false,"0x0")
         .then(function(){
           return true;
         })

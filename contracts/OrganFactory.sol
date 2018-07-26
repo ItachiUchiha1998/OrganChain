@@ -24,10 +24,10 @@ contract OrganFactory {
   Hospital[] public hospitals;
 
 // function takes string as input which will contain address of hospital
-function createHospital(string _name) public returns (uint256){
+function createHospital(string _name) public returns (bool){
   hospitals.push(Hospital(_name,msg.sender, new uint256[](0), new uint256[](0)));
   // event
-  return msg.sender;
+  return true;
 }
 
     // import user schema
@@ -76,12 +76,8 @@ function createHospital(string _name) public returns (uint256){
       }
     } */
 
-<<<<<<< HEAD
-    function see_function(address _hospitalId) public view returns (uint256[]) {
-=======
-    function see_function() public returns (uint256[]) {
->>>>>>> 345ab13fdfbaab2f00f8e045fc2d65cfbdfaaa61
-      for(uint i=0;i<hospitals.length;i++) {
+function see_function(address _hospitalId) public view returns (uint256[]) {
+for(uint i=0;i<hospitals.length;i++) {
         if(hospitals[i].hospitalId == msg.sender) {
           return hospitals[i].approvRequest;
         }
