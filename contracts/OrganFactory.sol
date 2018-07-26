@@ -22,9 +22,8 @@ contract OrganFactory {
   }
   Hospital[] public hospitals;
 
-function createHospital(string _name) public returns (bool){
-  hospitals.push(Hospital(_name,msg.sender, new uint256[](0), new uint256[](0)));
-  // event
+function createHospital(string _name,address hospitalId) public returns (bool){
+  hospitals.push(Hospital(_name,hospitalId, new uint256[](0), new uint256[](0)));
   return true;
 }
 
@@ -108,6 +107,19 @@ for(uint i=0;i<hospitals.length;i++) {
             organs[_id].purchaser_id
     	);
     }
+
+    // function getHospital(uint256 _id) public view
+    // returns(
+    //   string,
+    // address,
+    // uint256[],
+    // uint256[]  ) {
+    //   return (        hospitals[_id].name,
+    //     hospitals[_id].hospitalId,
+    //     hospitals[_id].approvRequest,
+    //     hospitals[_id].approved,
+    //   );
+    // }
 
     function getIsPurchased(uint256 _id) public view returns (bool) {
         return organs[_id].isPurchased;

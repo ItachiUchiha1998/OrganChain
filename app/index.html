@@ -5,83 +5,106 @@
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <style>
  	body {
-	  margin-left: 25%;
-	  margin-right: 25%;
-	  margin-top: 10%;
-	  font-family: "Open Sans", sans-serif;
+	  	font-family: "Open Sans", sans-serif;
+	    display: flex;
+	    min-height: 100vh;
+	    flex-direction: column;
 	}
-
-	label {
-	  display: inline-block;
-	  width: 100px;
-	}
-
-	input {
-	  width: 500px;
-	  padding: 5px;
-	  font-size: 16px;
-	}
-
-	button {
-	  font-size: 16px;
-	  padding: 5px;
-	}
-
-	h1, h2 {
-	  display: inline-block;
-	  vertical-align: middle;
-	  margin-top: 0px;
-	  margin-bottom: 10px;
-	}
-
-	h2 {
-	  color: #AAA;
-	  font-size: 32px;
-	}
-
-	h3 {
-	  font-weight: normal;
-	  color: #AAA;
-	  font-size: 24px;
-	}
-
-	.black {
-	  color: black;
-	}
-
-	#balance {
-	  color: black;
-	}
-
-	.hint {
-	  color: #666;
-	}
+     
+    main {
+    flex: 1 0 auto;
+  }
 
   </style>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
 
 <script src="app.js"></script>
 
 </head>
 <body>
-  <h1>OrganChain</h1>
 
-  <input type="organName" name="organName" id="organName" placeholder="Organ Name" >
-  <input type="hospitalId" name="hospitalId" id="hospitalId" placeholder="Hospital Id" >
-  <input type="refcode" name="refcode" id="refcode" placeholder="Reference Code" >
-
-  <br><br>
-
-  <button id="donate">Donate</button>
-  
-  <br><br>
-  
-  <h1>Available Organs</h1>
-	
-  <button id="get">See Organs</button>
+<nav style="position: absolute;top: 0px;left: 0px">
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo center">OrganChain</a>
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">Hospital</a></li>
+      </ul>
+    </div>
+  </nav>
+	    <br>
+	    <button id="showDonate" class="waves-effect waves-light btn" style="width: 100%;">Donate</button>
+	    <br>
+<div id="organDonate">    
+	<div class="row">
+    <form class="col s12">
+      <div class="row">
+        <div class="input-field col s6">
+          <input id="organName" type="text" class="validate">
+          <label for="icon_name" id="organName">Organ Name</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="hospitalId" type="text" class="validate">
+          <label for="hospitalId">Hospital Id</label>
+        </div>
+        <div class="input-field col s6">
+          <input id="refcode" type="text" class="validate">
+          <label for="refcode">Reference Id</label>
+        </div>
+      </div>
+      <input id="cancel" type="button" 
+      style="float: right;margin-left: 3px;cursor: pointer;width:auto;color: white;background-color:#F44336;box-shadow: 3px " 
+      value="Cancel"  
+     />
+      <input id="donate" type="button" 
+      style="float: right;margin-left: 3px;cursor: pointer;width:auto;color: white;background-color:#006064;
+      box-shadow: 3px"
+       value="Donate" />
+    </form>
+  </div>
+  </div>
+  <div>
+  <button id="get" class="waves-effect waves-light btn" style="left: 40%">Display Organs</button>
   
   <span id="status"></span>
-  <br>
+  
+  </div>
+
+   <!--<footer class="page-footer">
+          <div class="container">
+            <div class="row">
+              <div class="col l6 s12">
+                <h5 class="white-text">Footer Content</h5>
+                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
+              </div>
+            </div>
+          </div>
+          <div class="footer-copyright">
+            <div class="container">
+            © 2014 Copyright Text
+            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
+            </div>
+          </div>
+        </footer>
+-->
+<script>
+$(document).ready(function(){
+	
+	$('#organDonate').hide();
+
+    $("#cancel").click(function(){
+        $("#organDonate").hide();
+    });
+
+    $("#showDonate").click(function(){
+        $("#organDonate").show();
+    });
+
+});
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+
 </body>
 </html>
