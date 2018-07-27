@@ -53,9 +53,20 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
       Organ.deployed().then(function(contractInstance) {
           contractInstance.getCount.call().then(function(v) {
             console.log(v.toString());
-
+            $('#organs').html('')
             for(let i=1;i<=v;i++)    
             contractInstance.getOrgan.call(i-1).then(function(v){
+
+              var stat = "";
+
+              if(v[5] == false) {
+                console.log("available");
+                stat = `<button id="getOrgan" class="waves-effect waves-light btn">Get Organ</button>
+              `;
+              } else {
+                stat = `<button id="status" class="waves-effect waves-light btn">Purchased</button>`;
+              }
+
               $('#organs').append(
     `<div class="row">
         <div class="col s12">
@@ -66,8 +77,9 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
               <p>Organ Id: <span id="organId">` +(i-1) + `</span></p>
             </div>
             <div class="card-action ">
-              <button id="getOrgan" class="waves-effect waves-light btn">Get Organ</button>
-              </div>
+            `+stat+`
+              
+              </div>            
           </div>
         </div>
     </div>`
@@ -89,9 +101,16 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
           contractInstance.getUserOrgans.call(web3.eth.accounts).then(function(v) {
             
             console.log(v.toString())
-
-            contractInstance.getOrgan.call(v.toString()).then(function(v){
+            if (v.toString()=="") { 
+              console.log("No organs"); 
+              $('#myorgans').html('')
+              $('#myorgans').append(`
+                <h3 style="left:33%;position:relative">No Organs</h3>
+              `) }
+            else {
+              contractInstance.getOrgan.call(v.toString()).then(function(v){
               console.log(v.toString())
+              $('#myorgans').html('')
               $('#myorgans').append(
                 `<div class="row">
                     <div class="col s12">
@@ -105,15 +124,8 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
                             )
 
             })
-
-            // v.forEach(function(){
-            //   console.log(v)    
-            //   let a = v.toString();
-            //   contractInstance.getOrgan.call(a).then(function(d){
-            //     console.log(d)
-            //   })
-            // })
-
+            }
+            
           });
         })
     } catch(err) {
@@ -167,28 +179,6 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
         
   })
 
-  // createHospital = function(hospital){
-  //   console.log("create hospital function called")
-
-  //   let hospitalName = $('#hospitalName').val()
-    
-  //   try{
-      
-  //     Organ.deployed().then(function(contractInstance) {
-      
-  //       contractInstance.createHospital(hospitalName,web3.eth.account[1],
-  //                                   {gas:10000,from:web3.eth.account[1]})
-  //       .then(function(){
-  //         return true;
-  //       })
-  //     })
-
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-
-  // }
-
   // getHospital = function(hospital) {
     
   //   let id = web3.eth.account[1];
@@ -203,17 +193,6 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
 
   //   } catch(err) {
   //     console.log(err);
-  //   }
-  // }
-
-  // purchaseOrgan = function(purchase) {
-  //   let id = 1;
-  //   try {
-  //     Organ.deployed().then(function(contractInstance) {
-  //       contractInstance.purchaseOrgan(id,web3.eth.account[0],{gas:10000,from:web3.eth.account[1]})
-  //     })
-  //   } catch(err) {
-  //     console.log(err)
   //   }
   // }
 
