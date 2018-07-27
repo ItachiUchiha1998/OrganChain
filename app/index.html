@@ -29,13 +29,15 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">OrganChain</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a href="#">Home</a></li>
-        <li><a href="#">Hospital</a></li>
+        <li><a id="homebutton">Home</a></li>
+        <li><a id="showHospital" >Hospital</a></li>
       </ul>
     </div>
   </nav>
+
 	    <br>
-	    <button id="showDonate" class="waves-effect waves-light btn" style="width: 100%;">Donate</button>
+<div id="main">
+	    <button id="showDonate" class="waves-effect waves-light btn" style="width: 30%;left:35%">Donate</button>
 	    <br>
 <div id="organDonate">    
 	<div class="row">
@@ -66,13 +68,18 @@
   </div>
   </div>
   <div>
-
-  <button id="my" class="waves-effect waves-light btn" style="left: 37%">Display My Organs</button>
+  <br>
+  <button id="my" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Display My Organs</button>
     <div id="myorgans" class="container"></div>
     <br>
-  <button id="get" class="waves-effect waves-light btn" style="left: 33%">Display Available Organs</button>
+  <button id="get" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Display Available Organs</button>
   	<div id="organs" class="container"></div>
   </div>
+</div>
+
+<div id="hospital">
+  <h1>Hospital Admin Page</h1>
+</div>
 
    <!--<footer class="page-footer">
           <div class="container">
@@ -91,13 +98,6 @@
           </div>
         </footer>
 -->
-<script>
-$(document).ready(function(){
-	
-	
-
-});
-</script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 </body>

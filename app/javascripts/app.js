@@ -32,7 +32,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
       Organ.deployed().then(function(contractInstance) {
       
         contractInstance.donateOrgan(organName,donorId,refcode,
-                                     hospitalId,false,"0x0",
+                                     hospitalId,false,"0x0",false,
                                     {gas:10000,from:web3.eth.accounts[0]})
         .then(function(){
           return true;
@@ -125,6 +125,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
   $('#get').click(getOrgan);
   $('#my').click(getMyOrgans);
   $('#organDonate').hide();
+  $('#hospital').hide();
   $(document).on("click", '#getOrgan',function(){
     
     var organId = $('#organId').text();
@@ -149,6 +150,16 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
     $("#cancel").click(function(){
         $("#organDonate").hide();
     });
+
+    $('#showHospital').click(function() {
+      $('#main').hide();
+      $('#hospital').show();
+    })
+
+    $('#homebutton').click(function() {
+      $('#hospital').hide();
+      $('#main').show();
+    })
 
     $("#showDonate").click(function(){
         $("#organDonate").show();

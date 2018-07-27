@@ -82,7 +82,8 @@ function getOrgan(uint256 _id) public view // get organ by Id
     	uint256,
     	address,
     	bool,
-      address
+      address,
+      bool
     ) {
     	return (
     		organs[_id].name,
@@ -90,7 +91,8 @@ function getOrgan(uint256 _id) public view // get organ by Id
     		organs[_id].refcode,
     		organs[_id].hospitalId,
     		organs[_id].isPurchased,
-        organs[_id].purchaser_id
+        organs[_id].purchaser_id,
+        organs[_id].isApproved
     	);
  }
 
