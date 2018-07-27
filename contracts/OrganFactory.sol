@@ -134,12 +134,17 @@ function createHospital(string _name,address hospitalId) public returns (bool){ 
 
       setIsPurchased(_id,true);
       purchase(_id,_buyer);
+      ownedOrgans[_buyer].push(_id);
       emit OrganDonated(_id);
       return _id;
   }
 
   function getCount() public view returns (uint256) { // return array length of organs
     return organs.length;
+  }
+
+  function getUserOrgans(address _owner) public view returns (uint256[]) {
+    return ownedOrgans[_owner];
   }
 
 }

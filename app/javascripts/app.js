@@ -63,6 +63,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
             <div class="card-content white-text" >
               <span class="card-title">` + v[0] +`</span>
               <p>ReferenceID : ` + v[2] + `</p>
+              <p>Organ Id: <span id="organId">` +(i-1) + `</span></p>
             </div>
             <div class="card-action ">
               <button id="getOrgan" class="waves-effect waves-light btn">Get Organ</button>
@@ -80,12 +81,69 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
       console.log(err);
     }
   }
+
+  function getMyOrgans() {
+    console.log("get user organs");
+    try {
+      Organ.deployed().then(function(contractInstance) {
+          contractInstance.getUserOrgans.call(web3.eth.accounts).then(function(v) {
+            
+            console.log(v.toString())
+
+            contractInstance.getOrgan.call(v.toString()).then(function(v){
+              console.log(v.toString())
+              $('#myorgans').append(
+                `<div class="row">
+                    <div class="col s12">
+                      <div class="card " style="background-color: #fb576a">
+                        <div class="card-content white-text" >
+                          <span class="card-title">` + v[0] +`</span>
+                          <p>ReferenceID : ` + v[2] + `</p>
+                        </div>
+                    </div>
+                </div>`
+                            )
+
+            })
+
+            // v.forEach(function(){
+            //   console.log(v)    
+            //   let a = v.toString();
+            //   contractInstance.getOrgan.call(a).then(function(d){
+            //     console.log(d)
+            //   })
+            // })
+
+          });
+        })
+    } catch(err) {
+      console.log(err);
+    }
+  }
   
   $("#donate").click(donateOrgan);
   $('#get').click(getOrgan);
+  $('#my').click(getMyOrgans);
   $('#organDonate').hide();
   $(document).on("click", '#getOrgan',function(){
-    console.log("purchase function called")
+    
+    var organId = $('#organId').text();
+    console.log("purchase function called for: " + organId )
+
+    try {
+      Organ.deployed().then(function(contractInstance) {
+      
+        contractInstance.purchaseOrgan(organId,web3.eth.accounts,
+                                    {gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+    } catch(err) {
+      console.log(err)
+    }
+
+
   })
 
     $("#cancel").click(function(){
@@ -151,5 +209,4 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
 
 /*
 hospital approval
-get organ
 */
