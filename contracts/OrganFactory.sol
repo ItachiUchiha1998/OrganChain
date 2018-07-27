@@ -12,93 +12,70 @@ contract OrganFactory { // OrganFactory Contract
 		address hospitalId;
 		bool isPurchased;
     address purchaser_id;
+    bool isApproved;
   }
 
   struct Hospital { // hospital structure
     string name;
     address hospitalId;
-    uint256[] approvRequest;
     uint256[] approved;
   }
   Hospital[] public hospitals;
 
 function createHospital(string _name,address hospitalId) public returns (bool){ // create hospital
-  hospitals.push(Hospital(_name,hospitalId, new uint256[](0), new uint256[](0)));
+  hospitals.push(Hospital(_name,hospitalId, new uint256[](0)));
   return true;
 }
 
   Organ[] public organs;
 
-  /* Events */
+/* Events */
 	event OrganCreated(address indexed donorId, uint256 indexed refcode); 
   event OrganApproved(); 
   event OrganRejected();   
   event OrganDonated(uint256 id);
 
-  /* Mapping */
-  mapping (uint => address) private organToHospital;
+/* Mapping */
+  mapping (address => uint256[]) private organToHospital;
   mapping (address => uint256[]) private ownedOrgans;
 
-  function organAccepted(uint _i, uint _j) public returns(bool){ // Approve Organ
-    //_i is index in hospital array
-    //_j is the index in approvRequest array
-    uint256 k = hospitals[_i].approvRequest[_j];
-    hospitals[_i].approved.push(k);
-    for(uint i=_j; i<hospitals[_i].approvRequest.length-1;i++) {
-      hospitals[_i].approvRequest[i] = hospitals[_i].approvRequest[i+1];
-    }
-    delete hospitals[_i].approvRequest[hospitals[_i].approvRequest.length-1];
-    hospitals[_i].approvRequest.length--;
-    emit OrganApproved();
+function acceptOrgan(uint256 _id) public returns (bool) { // approve a organ donation
+    organs[_id].isApproved = true;
     return true;
-  }
+}
 
-  function organRejected(uint _i, uint _j) public returns(bool){ // DisApprove a Organ
+function rejectOrgan(uint256 _id) public returns (bool) { // reject organ donation
+    organs[_id].isApproved = false;
+    return true;
+}
 
-    for(uint i=_j; i<hospitals[_i].approvRequest.length-1;i++) {
-      hospitals[_i].approvRequest[i] = hospitals[_i].approvRequest[i+1];
-    }
-    delete hospitals[_i].approvRequest[hospitals[_i].approvRequest.length-1];
-    hospitals[_i].approvRequest.length--;
-    emit OrganRejected();
-    return false;
-  }
+function see_function(address _hospitalId) public view returns (uint256[]) { // see approve requests
+    return organToHospital[_hospitalId];
+}
 
-
-  function see_function(address _hospitalId) public view returns (uint256[]) { // see approve requests
-    for(uint i=0;i<hospitals.length;i++) {
-        if(hospitals[i].hospitalId == _hospitalId) {
-          return hospitals[i].approvRequest;
-      }
-    }
-  }
-
-  function donateOrgan( // Approve Organ
-  	string _name,
-  	address _donorId,   
-  	uint256 _refcode,
-	  address _hospitalId, 
-	  bool _isPurchased,
-    address _purchaser_id
-  ) public returns (uint256) {
+function donateOrgan( // Approve Organ
+    	string _name,
+    	address _donorId,   
+    	uint256 _refcode,
+  	  address _hospitalId, 
+  	  bool _isPurchased,
+      address _purchaser_id,
+      bool _isApproved
+    ) public returns (uint256) {
 
   	uint id = organs.push(Organ(_name,_donorId,
                                   _refcode,_hospitalId,
-                                  _isPurchased,_purchaser_id)) - 1; 
+                                  _isPurchased,_purchaser_id,_isApproved)) - 1; 
 
     emit OrganCreated(_donorId , _refcode);
 
-    for(uint i=0;i<hospitals.length;i++) { // send approve request to hospital
-        if(hospitals[i].hospitalId == _hospitalId) {
-          hospitals[i].approvRequest.push(uint256(keccak256(abi.encodePacked(_name,_hospitalId))))-1;
-        }
-      }
+    organToHospital[_hospitalId].push(id);
    
     return id;
   
-  }
+}
 
-  function getOrgan(uint256 _id) public view // get organ by Id
+function getOrgan(uint256 _id) public view // get organ by Id
     returns(
     	string,
     	address,
@@ -115,7 +92,7 @@ function createHospital(string _name,address hospitalId) public returns (bool){ 
     		organs[_id].isPurchased,
         organs[_id].purchaser_id
     	);
-  }
+ }
 
   function getIsPurchased(uint256 _id) public view returns (bool) { // return purchase status of organ 
       return organs[_id].isPurchased;
@@ -148,8 +125,3 @@ function createHospital(string _name,address hospitalId) public returns (bool){ 
   }
 
 }
-
-
-/* 
-  all functions executable
-*/
