@@ -18,6 +18,10 @@ A Dapp to provide easy access of donated organs
 
 - No more Illegal Sale of Donated Organs by Middlemen.
 
+## **Links**
+
+1. PPT Link - <a href="https://docs.google.com/presentation/d/1XvTY9hsqH40Gv1Hppkb5vaEe2dYYAP6xisrpFsmNOLI/edit?usp=sharing">PPT Link</a>
+2. Video Link - <a href="https://drive.google.com/open?id=1A9rT_ACp664BAqE8HmGGxilBwjNIdxLA">Video Link</a>
 
 ## **Basic Architecture**
 
@@ -62,3 +66,4 @@ npm run dev
 - **Truffle** Framework to interact with blockchain
 - **Web3.js** Integrate blockchain with UI
 - **ExpressJS** For serving and routing of application
+
