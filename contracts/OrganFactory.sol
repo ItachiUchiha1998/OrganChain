@@ -30,9 +30,10 @@ function createHospital(string _name,address hospitalId) public returns (bool){ 
   Organ[] public organs;
 
 /* Events */
-	event OrganCreated(address indexed donorId, uint256 indexed refcode); 
-  event OrganApproved(); 
-  event OrganRejected();   
+	
+  event OrganCreated(address indexed donorId, uint256 indexed refcode); 
+  event OrganApproved(uint256 id); 
+  event OrganRejected(uint256 id);   
   event OrganDonated(uint256 id);
 
 /* Mapping */
@@ -41,11 +42,13 @@ function createHospital(string _name,address hospitalId) public returns (bool){ 
 
 function acceptOrgan(uint256 _id) public returns (bool) { // approve a organ donation
     organs[_id].isApproved = true;
+    emit OrganApproved(_id);
     return true;
 }
 
 function rejectOrgan(uint256 _id) public returns (bool) { // reject organ donation
     organs[_id].isApproved = false;
+    emit OrganRejected(_id);
     return true;
 }
 
