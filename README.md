@@ -1,6 +1,5 @@
 # OrganChain
-Project built for IBC Hackathon
-
+A Decentralized Application to provide easy access of donated organs
 ## **Idea**
 
 A Dapp to provide easy access of donated organs
