@@ -21,6 +21,7 @@ A Dapp to provide easy access of donated organs
 
 1. PPT Link - <a href="https://docs.google.com/presentation/d/1XvTY9hsqH40Gv1Hppkb5vaEe2dYYAP6xisrpFsmNOLI/edit?usp=sharing">PPT Link</a>
 2. Video Link - <a href="https://drive.google.com/open?id=1A9rT_ACp664BAqE8HmGGxilBwjNIdxLA">Video Link</a>
+3. Basic Architecture Link - <a href="https://docs.google.com/presentation/d/1BdH68Iawqnh4o7D53weAQHd29M7BY5kQPXNdwjwZjPQ/edit#slide=id.p">Link</a>
 
 ## **Basic Architecture**
 
