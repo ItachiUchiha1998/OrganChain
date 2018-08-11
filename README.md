@@ -17,6 +17,10 @@ A Dapp to provide easy access of donated organs
 
 - No more Illegal Sale of Donated Organs by Middlemen.
 
+# ERC721 
+
+ERC721, also known as NFTs (Non-fungible token) are tokens where each one is unique. These individual tokens can come with metadata, which would be a link for their IPFS json file. In this project we have added organs' info to the blockchain such as name, reference_code and hospital_id. They're indivisible unlike fungible tokens.
+
 ## **Links**
 
 1. PPT Link - <a href="https://docs.google.com/presentation/d/1XvTY9hsqH40Gv1Hppkb5vaEe2dYYAP6xisrpFsmNOLI/edit?usp=sharing">PPT Link</a>
