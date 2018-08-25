@@ -3,6 +3,9 @@ import "../stylesheets/app.css";
 import { default as Web3} from 'web3';
 import { default as contract } from 'truffle-contract';
 import organ_artifacts from '../../build/contracts/OrganFactory.json';
+import hospital_artifacts from '../../build/contracts/Hospitals.json';
+import user_artifacts from '../../build/contracts/User.json';
+
 
   $(document).ready(function(){
 
@@ -15,8 +18,12 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
     }
 
   var Organ = contract(organ_artifacts);
+  var Hospitals = contract(hospital_artifacts);
+  var User = contract(user_artifacts);
 
-    Organ.setProvider(web3.currentProvider);
+  Organ.setProvider(web3.currentProvider);
+  Hospitals.setProvider(web3.currentProvider);
+  User.setProvider(web3.currentProvider);
 
   function donateOrgan() {
   
@@ -25,7 +32,7 @@ import organ_artifacts from '../../build/contracts/OrganFactory.json';
     let organName = $('#organName').val();
     let hospitalId = $('#hospitalId').val();
     let refcode = $('#refcode').val();
-    let donorId = web3.eth.accounts[0];
+    let donorId = web3.eth.accounts[0];  
     
     try{
       
