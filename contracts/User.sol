@@ -2,9 +2,7 @@ pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
-import "./Hospitals.sol";
-
-contract User is Hospitals{
+contract User{
 
   using SafeMath for uint;
 
@@ -29,9 +27,17 @@ contract User is Hospitals{
 
   function applyForOrgan(string _organName) public returns (bool success) {
     receiverToOrgan[msg.sender] = _organName;
-
     emit organApplied(true);
     return true;
+  }
+
+  function  mean_priority(uint256 _id) public returns (bool) {
+    uint256 m = 0;
+    for(uint256 i=0;i<receivers[_id].priority.length;i++) {
+      m = m + i;
+    }
+    uint256 p = m/receivers[_id].priority.length;
+    receivers[_id].meanPriority = p;
   }
 
 }

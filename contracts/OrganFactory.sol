@@ -29,6 +29,7 @@ contract OrganFactory { // OrganFactory Contract
 
 
 mapping (address => uint256[]) public organToHospital;
+
 function donateOrgan( // Approve Organ
     	string _name,
     	address _donorId,

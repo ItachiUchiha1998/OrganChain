@@ -1,8 +1,10 @@
 pragma solidity ^0.4.24;
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./OrganFactory.sol";
+import "./User.sol";
 
-contract Hospitals is OrganFactory {
+
+contract Hospitals is OrganFactory,User {
 
   using SafeMath for uint;
 
@@ -35,8 +37,9 @@ function rejectOrgan(uint256 _id) public returns (bool) { // reject organ donati
     return true;
 }
 
-/* function see_function() public view returns (uint256[]) { // see approve requests
-    return organToHospital[msg.sender];
-} */
+function set_priority(uint256 _receiver,uint256 priority_order) public returns (bool) {
+    receivers[_receiver].priority.push(priority_order);
+    return true;
+  }
 
 }
