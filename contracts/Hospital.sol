@@ -33,12 +33,12 @@ contract Hospital {
       return true;
   }
 
-  function see_function() public view returns (uint256[]) { // see approve requests
+  function see_organ() public view returns (uint256[]) { // see approved organs
       return organToHospital[msg.sender];
   }
 
   function set_priority(address _receiver) public returns (bool) {
-
+    
     return true;
   }
   

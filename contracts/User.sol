@@ -7,8 +7,10 @@ contract User {
   using SafeMath for uint;
 
   struct Receiver {
-    string name;
-    uint256 priority; // 1 <-> 10
+    string organname;
+    address receiverId;
+    uint256 priority[1000];
+    uint256 meanPriority; 
   }
 
   Receiver[] public receivers;
