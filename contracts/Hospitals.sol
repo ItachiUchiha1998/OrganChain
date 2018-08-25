@@ -56,8 +56,8 @@ function organ_max_priority(uint256 _id) public  returns(bool) {
       }
     }
   }
-  organs[_id].purchaser_id = receivers[temp].receiverId; 
-  organs[_id].isPurchased = true;
+  organs[_id].receiver_id = receivers[temp].receiverId; 
+  organs[_id].isReceived = true;
   return true;
 }
 
