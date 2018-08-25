@@ -9,7 +9,7 @@ contract User {
   struct Receiver {
     string organname;
     address receiverId;
-    uint256 priority[1000];
+    uint256[] priority;
     uint256 meanPriority; 
   }
 

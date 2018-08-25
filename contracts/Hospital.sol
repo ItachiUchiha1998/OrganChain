@@ -37,10 +37,18 @@ contract Hospital {
       return organToHospital[msg.sender];
   }
 
-  function set_priority(address _receiver) public returns (bool) {
-    
+  function set_priority(address _receiver,uint256 priority_order,uint256 _id) public returns (bool) {
+    receivers[_receiver].priority[_id] = priority_order;
     return true;
   }
-  
+
+  function  mean_priority(address _id) public returns (bool) {
+    uint256 m = 0;
+    for(uint256 i=0;i<receivers[_id].priority.length;i++) {
+      m = m + i;
+    }
+    uint256 p = m/receivers[_id].priority;
+    receivers[_id].meanPriority = p;
+  }
 
 }
