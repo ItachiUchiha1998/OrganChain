@@ -19,10 +19,10 @@ contract User{
 
   mapping(address => string) public receiverToOrgan;
 
-  function createReceiver() public returns (uint256) {
-    uint256 id = receivers.push(Receiver(msg.sender,new uint256[](0),0)) - 1;
+  function createReceiver(address _receiver) public returns (bool success) {
+    uint256 id = receivers.push(Receiver(_receiver,new uint256[](0),0)) - 1;
     emit receiverCreated(id);
-    return id;
+    return true;
   }
 
   function applyForOrgan(string _organName) public returns (bool success) {

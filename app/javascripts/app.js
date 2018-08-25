@@ -31,16 +31,120 @@ import user_artifacts from '../../build/contracts/User.json';
 
     let organName = $('#organName').val();
     let hospitalId = $('#hospitalId').val();
-    let refcode = $('#refcode').val();
     let donorId = web3.eth.accounts[0];  
     
     try{
       
       Organ.deployed().then(function(contractInstance) {
       
-        contractInstance.donateOrgan(organName,donorId,refcode,
+        contractInstance.donateOrgan(organName,donorId,
                                      hospitalId,false,"0x0",false,
                                     {gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  function acceptOrgan() {
+  
+    console.log("accept organ function called")
+
+    let id = $('#id').val();
+    
+    try{
+      
+      Hospitals.deployed().then(function(contractInstance) {
+      
+        contractInstance.acceptOrgan(id,{gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  function rejectOrgan() {
+  
+    console.log("reject organ function called")
+
+    let id = $('#id').val();
+    
+    try{
+      
+      Hospitals.deployed().then(function(contractInstance) {
+      
+        contractInstance.rejectOrgan(id,{gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  function set_priority() {
+  
+    console.log("accept organ function called")
+
+    let id = $('#receiverId').val();
+    let porder = $('#proder').val();
+    
+    try{
+      
+      Hospitals.deployed().then(function(contractInstance) {
+      
+        contractInstance.set_priority(id,porder,{gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  function applyForOrgan() {
+  
+    console.log("apply organ function called")
+
+    let organName = $('#applyOrgan').val();
+    
+    try{
+      
+      User.deployed().then(function(contractInstance) {
+      
+        contractInstance.applyForOrgan(organName,{gas:10000,from:web3.eth.accounts[0]})
+        .then(function(){
+          return true;
+        })
+      })
+
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
+  function createReceiver() {
+    console.log("create organ function called")
+
+    let receiverId = web3.eth.accounts[0];  
+    
+    try{
+      
+      User.deployed().then(function(contractInstance) {
+      
+        contractInstance.createReceiver(receiverId)
         .then(function(){
           return true;
         })
@@ -52,6 +156,8 @@ import user_artifacts from '../../build/contracts/User.json';
 
   }
   
+
+
   function getOrgan() {
 
     console.log("get organ function called")
@@ -143,8 +249,10 @@ import user_artifacts from '../../build/contracts/User.json';
   $("#donate").click(donateOrgan);
   $('#get').click(getOrgan);
   $('#my').click(getMyOrgans);
+  $('#createReceive').click(createReceiver);
   $('#organDonate').hide();
   $('#hospital').hide();
+  $('#receiver').hide();
   $(document).on("click", '#getOrgan',function(){
     
     var organId = $('#organId').text();
@@ -166,6 +274,8 @@ import user_artifacts from '../../build/contracts/User.json';
 
   })
 
+  $('#ao').hide();
+
     $("#cancel").click(function(){
         $("#organDonate").hide();
     });
@@ -173,37 +283,29 @@ import user_artifacts from '../../build/contracts/User.json';
     $('#showHospital').click(function() {
       $('#main').hide();
       $('#hospital').show();
+      $('#receiver').hide();
     })
 
-    $('#homebutton').click(function() {
+    $('#showDonor').click(function() {
       $('#hospital').hide();
       $('#main').show();
+      $('#receiver').hide();
+    })
+
+    $('#showReceiver').click(function() {
+      $('#hospital').hide();
+      $('#main').hide();
+      $('#receiver').show();
     })
 
     $("#showDonate").click(function(){
         $("#organDonate").show();
     });
-        
-  })
 
-  // getHospital = function(hospital) {
-    
-  //   let id = web3.eth.account[1];
+    $('#apply').click(function(){
+      $('#ao').show();
+    });
 
-  //   try {
+    $('#applied').click(applyForOrgan);
 
-  //     Organ.deployed().then(function(contractInstance){
-  //       contractInstance.see_function.call(id).then(function(v) {
-  //         console.log(v.toString())
-  //       })
-  //     })
-
-  //   } catch(err) {
-  //     console.log(err);
-  //   }
-  // }
-
-
-/*
-hospital approval
-*/
+  });

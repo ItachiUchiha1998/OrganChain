@@ -9,8 +9,8 @@ contract OrganFactory { // OrganFactory Contract
 		string name;
 		address donorId;
 		address hospitalId;
-		bool isPurchased;
-    address purchaser_id;
+		bool isReceived;
+    address receiver_id;
     bool isApproved;
   }
 
@@ -34,14 +34,14 @@ function donateOrgan( // Approve Organ
     	string _name,
     	address _donorId,
   	  address _hospitalId,
-  	  bool _isPurchased,
-      address _purchaser_id,
+  	  bool _isReceived,
+      address _receiver_id,
       bool _isApproved
     ) public returns (uint256) {
 
   	uint id = organs.push(Organ(_name,_donorId,
                                   _hospitalId,
-                                  _isPurchased,_purchaser_id,_isApproved)) - 1;
+                                  _isReceived,_receiver_id,_isApproved)) - 1;
 
     emit OrganCreated(_donorId);
 
@@ -64,30 +64,30 @@ function getOrgan(uint256 _id) public view // get organ by Id
     		organs[_id].name,
     		organs[_id].donorId,
     		organs[_id].hospitalId,
-    		organs[_id].isPurchased,
-        organs[_id].purchaser_id,
+    		organs[_id].isReceived,
+        organs[_id].receiver_id,
         organs[_id].isApproved
     	);
  }
 
-  function getIsPurchased(uint256 _id) public view returns (bool) { // return purchase status of organ
-      return organs[_id].isPurchased;
+  function getIsReceived(uint256 _id) public view returns (bool) { // return receive status of organ
+      return organs[_id].isReceived;
   }
 
-  function setIsPurchased(uint256 _id, bool _isPurchased) public { // set purchase status of organ
-      organs[_id].isPurchased = _isPurchased;
+  function setIsReceived(uint256 _id, bool _isReceived) public { // set Received status of organ
+      organs[_id].isReceived = _isReceived;
   }
 
-  function purchase(uint256 _id,address _buyer) public returns (bool) { // set buyer of organ
-      organs[_id].purchaser_id = _buyer;
+  function received(uint256 _id,address _receiver) public returns (bool) { // set receive of organ
+      organs[_id].receiver_id = _receiver;
       return true;
   }
 
-  function purchaseOrgan(uint256 _id,address _buyer) public returns (uint256) { // purchase an organ and change purchase status and buyer details
+  function receiveOrgan(uint256 _id,address _receive) public returns (uint256) { // receive an organ and change receive status and buyer details
 
-      setIsPurchased(_id,true);
-      purchase(_id,_buyer);
-      ownedOrgans[_buyer].push(_id);
+      setIsReceived(_id,true);
+      received(_id,_receive);
+      ownedOrgans[_receive].push(_id);
       emit OrganDonated(_id);
       return _id;
   }

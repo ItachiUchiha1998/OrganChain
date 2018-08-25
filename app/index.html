@@ -4,17 +4,16 @@
   <title>OrganChain</title>
   <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
   <style>
- 	body {
-	  	font-family: "Open Sans", sans-serif;
-	    display: flex;
-	    min-height: 100vh;
-	    flex-direction: column;
-	}
+  body {
+      font-family: "Open Sans", sans-serif;
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+  }
      
     main {
     flex: 1 0 auto;
   }
-
   </style>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
@@ -29,18 +28,19 @@
     <div class="nav-wrapper">
       <a href="#" class="brand-logo center">OrganChain</a>
       <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li><a id="homebutton">Home</a></li>
+        <li><a id="showDonor">Donor</a></li>
         <li><a id="showHospital" >Hospital</a></li>
+        <li><a id="showReceiver">Receiver</a></li>
       </ul>
     </div>
   </nav>
 
-	    <br>
+      <br>
 <div id="main">
-	    <button id="showDonate" class="waves-effect waves-light btn" style="width: 30%;left:35%">Donate</button>
-	    <br>
+      <button id="showDonate" class="waves-effect waves-light btn" style="width: 30%;left:35%">Donate</button>
+      <br>
 <div id="organDonate">    
-	<div class="row">
+  <div class="row">
     <form class="col s12">
       <div class="row">
         <div class="input-field col s6">
@@ -50,10 +50,6 @@
         <div class="input-field col s6">
           <input id="hospitalId" type="text" class="validate">
           <label for="hospitalId">Hospital Id</label>
-        </div>
-        <div class="input-field col s6">
-          <input id="refcode" type="text" class="validate">
-          <label for="refcode">Reference Id</label>
         </div>
       </div>
       <input id="cancel" type="button" 
@@ -67,14 +63,6 @@
     </form>
   </div>
   </div>
-  <div>
-  <br>
-  <button id="my" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Display My Organs</button>
-    <div id="myorgans" class="container"></div>
-    <br>
-  <button id="get" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Display Available Organs</button>
-  	<div id="organs" class="container"></div>
-  </div>
 </div>
 
 <div id="hospital">
@@ -83,23 +71,21 @@
   <div id="requests" class="container"></div>
 </div>
 
-   <!--<footer class="page-footer">
-          <div class="container">
-            <div class="row">
-              <div class="col l6 s12">
-                <h5 class="white-text">Footer Content</h5>
-                <p class="grey-text text-lighten-4">You can use rows and columns here to organize your footer content.</p>
-              </div>
-            </div>
-          </div>
-          <div class="footer-copyright">
-            <div class="container">
-            © 2014 Copyright Text
-            <a class="grey-text text-lighten-4 right" href="#!">More Links</a>
-            </div>
-          </div>
-        </footer>
--->
+<div id="receiver">  
+<h1 style="left: 100px;position: relative;">Receiver Page</h1> <br>
+<button id="createReceive" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Create Receiver</button>
+<br><br>
+<button id="apply" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Apply for Organs</button>
+  <div id="writeorgans" class="container">
+    <div class="input-field col s6" id="ao">
+          <input id="applyOrgan" type="text" class="validate">
+          <label for="applyOrgan">Apply Organ</label>
+<button id="applied" class="waves-effect waves-light btn" style="left: 35%;width: 30%">Apply</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
 
 </body>
