@@ -2,7 +2,7 @@ pragma solidity ^0.4.24;
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 import "./OrganFactory.sol";
 
-contract Hospitals {
+contract Hospitals is OrganFactory {
 
   using SafeMath for uint;
 
@@ -16,9 +16,11 @@ Hospital[] public hospitals;
 event OrganApproved(uint256 id);
 event OrganRejected(uint256 id);
 
+  mapping (address => uint256[]) private organToHospital;
 
 function createHospital(string _name) public returns (bool success){ // create hospital
   hospitals.push(Hospital(_name,msg.sender));
+  emit OrganApproved(1);
   return true;
 }
 

@@ -24,9 +24,8 @@ contract OrganFactory { // OrganFactory Contract
   event OrganDonated(uint256 id);
 
 /* Mapping */
-  mapping (address => uint256[]) private organToHospital;
   mapping (address => uint256[]) private ownedOrgans;
-  mapping
+  /* mapping (address => Organ[]) private currentOwnerTo */
 
 function donateOrgan( // Approve Organ
     	string _name,
