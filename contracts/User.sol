@@ -8,19 +8,25 @@ contract User {
 
   struct Receiver {
     string name;
-    address receiverId;
+    uint256 priority; // 1 <-> 10
   }
 
   Receiver[] public receivers;
-  event organApplied (
-      bool success
-    );
+
+  event organApplied (bool success);
+  event receiverCreated (uint256 _id);
 
   mapping(address => string) public receiverToOrgan;
 
+  function createReceiver(string _organ) public returns (uint256) {
+    uint256 id = receivers.push(Receiver(_organ,0)) - 1;
+    receiverCreated(id);  
+    return id;
+  }
+
   function applyForOrgan(string _organName) public returns (bool success) {
-    /* receiverToOrgan[msg.sender] = _organName; */
-    /* emit organApplied(true); */
+    receiverToOrgan[msg.sender] = _organName;
+    emit organApplied(true);
     return true;
   }
 
