@@ -2,15 +2,16 @@ pragma solidity ^0.4.24;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
 
-contract User {
+import "./Hospitals.sol";
+
+contract User is Hospitals{
 
   using SafeMath for uint;
 
   struct Receiver {
-    string organname;
     address receiverId;
-    uint256 priority[1000];
-    uint256 meanPriority; 
+    uint256[1000] priority;
+    uint256 meanPriority;
   }
 
   Receiver[] public receivers;
@@ -20,14 +21,15 @@ contract User {
 
   mapping(address => string) public receiverToOrgan;
 
-  function createReceiver(string _organ) public returns (uint256) {
-    uint256 id = receivers.push(Receiver(_organ,0)) - 1;
-    receiverCreated(id);  
+  function createReceiver() public returns (uint256) {
+    uint256 id = receivers.push(Receiver(msg.sender,new uint256[][0],0)) - 1;
+    receiverCreated(id);
     return id;
   }
 
   function applyForOrgan(string _organName) public returns (bool success) {
     receiverToOrgan[msg.sender] = _organName;
+
     emit organApplied(true);
     return true;
   }
