@@ -1,5 +1,5 @@
 var OrganFactory = artifacts.require("./OrganFactory.sol");
-var Hospital = artifacts.require("./Hospital.sol");
+var Hospitals = artifacts.require("./Hospitals.sol");
 var User = artifacts.require("./User.sol")
 
 module.exports = function(deployer) {
@@ -7,7 +7,7 @@ module.exports = function(deployer) {
 };
 
 module.exports = function(deployer) {
-  deployer.deploy(Hospital);
+  deployer.deploy(Hospitals);
 };
 
 module.exports = function(deployer) {

@@ -10,7 +10,7 @@ contract User is Hospitals{
 
   struct Receiver {
     address receiverId;
-    uint256[1000] priority;
+    uint256[] priority;
     uint256 meanPriority;
   }
 
@@ -22,8 +22,8 @@ contract User is Hospitals{
   mapping(address => string) public receiverToOrgan;
 
   function createReceiver() public returns (uint256) {
-    uint256 id = receivers.push(Receiver(msg.sender,new uint256[][0],0)) - 1;
-    receiverCreated(id);
+    uint256 id = receivers.push(Receiver(msg.sender,new uint256[](0),0)) - 1;
+    emit receiverCreated(id);
     return id;
   }
 
