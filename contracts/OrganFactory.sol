@@ -6,7 +6,7 @@ contract OrganFactory { // OrganFactory Contract
   using SafeMath for uint;
 
 	struct Organ { // organ structure
-		string name;
+		bytes32 name;
 		address donorId;
 		address hospitalId;
 		bool isPurchased;
@@ -31,7 +31,7 @@ contract OrganFactory { // OrganFactory Contract
 mapping (address => uint256[]) public organToHospital;
 
 function donateOrgan( // Approve Organ
-    	string _name,
+    	bytes32 _name,
     	address _donorId,
   	  address _hospitalId,
   	  bool _isPurchased,
@@ -53,7 +53,7 @@ function donateOrgan( // Approve Organ
 
 function getOrgan(uint256 _id) public view // get organ by Id
     returns(
-    	string,
+    	bytes32,
     	address,
     	address,
     	bool,

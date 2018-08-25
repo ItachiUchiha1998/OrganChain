@@ -17,7 +17,7 @@ contract User{
   event organApplied (bool success);
   event receiverCreated (uint256 _id);
 
-  mapping(address => string) public receiverToOrgan;
+  mapping(address => bytes32) public receiverToOrgan;
 
   function createReceiver() public returns (uint256) {
     uint256 id = receivers.push(Receiver(msg.sender,new uint256[](0),0)) - 1;
@@ -25,7 +25,7 @@ contract User{
     return id;
   }
 
-  function applyForOrgan(string _organName) public returns (bool success) {
+  function applyForOrgan(bytes32 _organName) public returns (bool success) {
     receiverToOrgan[msg.sender] = _organName;
     emit organApplied(true);
     return true;
