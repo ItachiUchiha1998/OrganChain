@@ -42,4 +42,23 @@ function set_priority(uint256 _receiver,uint256 priority_order) public returns (
     return true;
   }
 
+function organ_max_priority(uint256 _id) public  returns(bool) {
+
+  uint256 max_priority = 0;
+  uint256 temp = 0;
+  for(uint256 i =0; i<receivers.length;i++) {
+
+    /* if(keccak256(receiverToOrgan[receivers[i].receiverId]) == keccak256(organs[_id].name)) { */
+    if(receiverToOrgan[receivers[i].receiverId] == organs[_id].name) {
+      if(receivers[i].meanPriority > max_priority) {
+        max_priority = receivers[i].meanPriority;
+        temp = i;
+      }
+    }
+  }
+  organs[_id].purchaser_id = receivers[temp].receiverId; 
+  organs[_id].isPurchased = true;
+  return true;
+}
+
 }
