@@ -19,7 +19,7 @@ contract OrganFactory { // OrganFactory Contract
 
 /* Events */
 
-  event OrganCreated(address indexed donorId, uint256 indexed refcode);
+  event OrganCreated(address indexed donorId);
 
   event OrganDonated(uint256 id);
 
@@ -31,7 +31,6 @@ contract OrganFactory { // OrganFactory Contract
 function donateOrgan( // Approve Organ
     	string _name,
     	address _donorId,
-    	uint256 _refcode,
   	  address _hospitalId,
   	  bool _isPurchased,
       address _purchaser_id,
@@ -39,10 +38,10 @@ function donateOrgan( // Approve Organ
     ) public returns (uint256) {
 
   	uint id = organs.push(Organ(_name,_donorId,
-                                  _refcode,_hospitalId,
+                                  _hospitalId,
                                   _isPurchased,_purchaser_id,_isApproved)) - 1;
 
-    emit OrganCreated(_donorId , _refcode);
+    emit OrganCreated(_donorId);
 
     organToHospital[_hospitalId].push(id);
 
@@ -54,7 +53,6 @@ function getOrgan(uint256 _id) public view // get organ by Id
     returns(
     	string,
     	address,
-    	uint256,
     	address,
     	bool,
       address,
@@ -63,7 +61,6 @@ function getOrgan(uint256 _id) public view // get organ by Id
     	return (
     		organs[_id].name,
     		organs[_id].donorId,
-    		organs[_id].refcode,
     		organs[_id].hospitalId,
     		organs[_id].isPurchased,
         organs[_id].purchaser_id,
