@@ -31,7 +31,9 @@ import user_artifacts from '../../build/contracts/User.json';
 
     let organName = $('#organName').val();
     let hospitalId = $('#hospitalId').val();
-    let donorId = web3.eth.accounts[0];  
+    let donorId = web3.eth.accounts[0]; 
+
+    console.log(organName,hospitalId,donorId) 
     
     try{
       
@@ -41,6 +43,7 @@ import user_artifacts from '../../build/contracts/User.json';
                                      hospitalId,false,"0x0",false,
                                     {gas:10000,from:web3.eth.accounts[0]})
         .then(function(){
+          $('#text1').append("<p style='color:green'>Organ Successfully donated!</p>")
           return true;
         })
       })
@@ -174,13 +177,13 @@ import user_artifacts from '../../build/contracts/User.json';
 
               if(v[5] == false) {
                 console.log("available");
-                stat = `<button id="getOrgan" class="waves-effect waves-light btn">Get Organ</button>
+                stat = `<button id="getOrgan" class="waves-effect waves-light btn">Approve</button>
               `;
               } else {
-                stat = `<button id="status" class="waves-effect waves-light btn">Purchased</button>`;
+                stat = `<button id="status" class="waves-effect waves-light btn">Approve</button>`;
               }
 
-              $('#organs').append(
+              $('#requests').append(
     `<div class="row">
         <div class="col s12">
           <div class="card " style="background-color: #fb576a">
@@ -253,6 +256,7 @@ import user_artifacts from '../../build/contracts/User.json';
   $('#organDonate').hide();
   $('#hospital').hide();
   $('#receiver').hide();
+  $('#see').click(getOrgan);
   $(document).on("click", '#getOrgan',function(){
     
     var organId = $('#organId').text();
