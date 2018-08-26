@@ -210,6 +210,47 @@ import user_artifacts from '../../build/contracts/User.json';
     }
   }
 
+   function getReceiver() {
+
+    console.log("get organ function called")
+
+    try {
+      User.deployed().then(function(contractInstance) {
+          contractInstance.getCount.call().then(function(v) {
+            console.log(v.toString());
+            $('#rrr').html('') // 
+            for(let i=1;i<=v;i++)    
+            contractInstance.getReceivers.call(i-1).then(function(v){
+                stat = `<button id="Approve" class="waves-effect waves-light btn">Approve</button>
+              `;
+              
+
+              $('#rrr').append( //
+    `<div class="row">
+        <div class="col s12">
+          <div class="card " style="background-color: #fb576a">
+            <div class="card-content white-text" >
+              <span class="card-title">` + v[0] +`</span>
+              <p>Priority : ` + v[1] + `</p>
+              </div>
+            <div class="card-action ">
+            `+stat+`
+              
+              </div>            
+          </div>
+        </div>
+    </div>`
+                )
+              console.log(v.toString())
+            })
+        
+          });
+        })
+    } catch(err) {
+      console.log(err);
+    }
+  }
+
   function getMyOrgans() {
     console.log("get user organs");
     try {
@@ -248,7 +289,7 @@ import user_artifacts from '../../build/contracts/User.json';
       console.log(err);
     }
   }
-  
+
   $("#donate").click(donateOrgan);
   $('#get').click(getOrgan);
   $('#my').click(getMyOrgans);
@@ -257,6 +298,7 @@ import user_artifacts from '../../build/contracts/User.json';
   $('#hospital').hide();
   $('#receiver').hide();
   $('#see').click(getOrgan);
+  $('#rr').click(getReceiver);
   $(document).on("click", '#getOrgan',function(){
     
     var organId = $('#organId').text();
