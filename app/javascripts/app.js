@@ -188,8 +188,8 @@ import user_artifacts from '../../build/contracts/User.json';
         <div class="col s12">
           <div class="card " style="background-color: #fb576a">
             <div class="card-content white-text" >
-              <span class="card-title">` + v[0] +`</span>
-              <p>ReferenceID : ` + v[2] + `</p>
+              <span class="card-title">` + web3.toAscii(v[0]) +`</span>
+              <p>donorID : ` + v[1] + `</p>
               <p>Organ Id: <span id="organId">` +(i-1) + `</span></p>
             </div>
             <div class="card-action ">
